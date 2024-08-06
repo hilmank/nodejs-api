@@ -19,14 +19,53 @@ async function getTriwulans(req, res, next) {
 async function getDataIkm(req, res) {
     try {
         const { tahun, triwulan } = req.params;
-        console.log('masuk getDataIkm ' + triwulan)
         res.json(await webapiService.getDataIkm(tahun, triwulan));
     } catch (err) {
         console.error(`Error while getting data ikm`, err.message);
     }
 }
+async function getFrontOffices(req, res) {
+    try {
+        res.json(await webapiService.getFrontOffices());
+    } catch (err) {
+        console.error(`Error while getting data j_customer`, err.message);
+    }
+}
+async function getJenisKelamins(req, res) {
+    try {
+        res.json(await webapiService.getJenisKelamins());
+    } catch (err) {
+        console.error(`Error while getting data jeniskelamin`, err.message);
+    }
+}
+async function getPendidikans(req, res) {
+    try {
+        res.json(await webapiService.getPendidikans());
+    } catch (err) {
+        console.error(`Error while getting data Pendidikans`, err.message);
+    }
+}
+async function getKategoriInstitusis(req, res) {
+    try {
+        res.json(await webapiService.getKategoriInstitusis());
+    } catch (err) {
+        console.error(`Error while getting data KategoriInstitusis`, err.message);
+    }
+}
+async function getPertanyaans(req, res) {
+    try {
+        res.json(await webapiService.getPertanyaans());
+    } catch (err) {
+        console.error(`Error while getting data m_question`, err.message);
+    }
+}
 module.exports = {
     getTahuns,
     getTriwulans,
-    getDataIkm
+    getDataIkm,
+    getFrontOffices,
+    getJenisKelamins,
+    getPendidikans,
+    getKategoriInstitusis,
+    getPertanyaans
 }
