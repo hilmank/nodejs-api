@@ -24,8 +24,28 @@ async function getTriwulans(req, res, next) {
         { kode: 4, nama: "Triwulan 4" }
     ];
 }
-async function getDataIkm(req, res, next) {
+async function getDataIkm(tahun, triwulan, next) {
     try {
+
+        let minBulan, maxBulan;
+
+        if (triwulan === 1) {
+            minBulan = 1;
+            maxBulan = 3;
+        }
+        else if (triwulan === 2) {
+            minBulan = 4;
+            maxBulan = 6;
+        }
+        else if (triwulan === 3) {
+            minBulan = 7;
+            maxBulan = 9;
+        }
+        else {
+            minBulan = 10;
+            maxBulan = 12;
+        }
+
         const query = " WITH rekap_triwulan AS (" +
             "     SELECT" +
             "         d.name AS nama_element," +
@@ -39,8 +59,8 @@ async function getDataIkm(req, res, next) {
             "         JOIN pv_questionnaire c ON b.id = c.id_questionnaire" +
             "         JOIN m_element d ON c.id_element = d.id" +
             "     WHERE" +
-            "         date_part('year', a.created_at) = 2024" +
-            "         AND date_part('month', a.created_at) BETWEEN 1 AND 3" +
+            "         date_part('year', a.created_at) = $1" +
+            "         AND date_part('month', a.created_at) BETWEEN $2 AND $3" +
             "     GROUP BY" +
             "         nama_element" +
             " )" +
@@ -88,11 +108,14 @@ async function getDataIkm(req, res, next) {
             "             WHEN sum(nilai_indeks_parameter) * 25 BETWEEN 76.61" +
             "             AND 88.30 THEN 'Baik'" +
             "             ELSE 'Sangat Baik'" +
-            "         END" +
+            "         END," +
+            "         'tahun'," + tahun + "," +
+            "         'triwulan', ' Triwulan " + triwulan + "'" +
             "     ) AS ret" +
             " FROM" +
             "     rekap_triwulan;";
-        const result = await db.query(query);
+
+        const result = await db.query(query, [tahun, minBulan, maxBulan]);
         return result.rows[0];
     } catch (err) {
         console.error(`Error while getting data ikm`, err.message);
