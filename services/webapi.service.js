@@ -105,6 +105,15 @@ async function getPertanyaans() {
         console.error(`Error while getting data ikm`, error.message);
     }
 }
+async function saveKuisioner(res) {
+    try {
+        console.log(res.body);
+        return "suksesssss";
+    } catch (error) {
+        console.error(`Error while save data kuisioner`, error.message);
+
+    }
+}
 
 module.exports = {
     getTahuns,
@@ -114,5 +123,6 @@ module.exports = {
     getJenisKelamins,
     getPendidikans,
     getKategoriInstitusis,
-    getPertanyaans
+    getPertanyaans,
+    saveKuisioner
 }

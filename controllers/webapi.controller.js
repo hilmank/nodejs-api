@@ -59,6 +59,13 @@ async function getPertanyaans(req, res) {
         console.error(`Error while getting data m_question`, err.message);
     }
 }
+async function postKuisioner(req, res) {
+    try {
+        res.json(await webapiService.saveKuisioner(req))
+    } catch (err) {
+        console.error(`Error while getting data m_question`, err.message);
+    }
+}
 module.exports = {
     getTahuns,
     getTriwulans,
@@ -67,5 +74,6 @@ module.exports = {
     getJenisKelamins,
     getPendidikans,
     getKategoriInstitusis,
-    getPertanyaans
+    getPertanyaans,
+    postKuisioner
 }

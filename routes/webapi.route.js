@@ -12,4 +12,6 @@ router.get('/pendidikans', webapi.getPendidikans);
 router.get('/kategori-institusi', webapi.getKategoriInstitusis);
 router.get('/pertanyaans', webapi.getPertanyaans);
 
+router.post('/saveKuisioner', webapi.postKuisioner);
+
 module.exports = router;
